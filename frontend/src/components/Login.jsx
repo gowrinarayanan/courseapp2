@@ -1,5 +1,4 @@
-
-
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -19,13 +18,19 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Check for hardcoded username and password
-    if (credentials.username === 'admin' && credentials.password === '123') {
-      alert('Login successful!');
-      navigate('/home'); // Redirect to the home page
-    } else {
-      alert('Login failed! Please check your username and password.');
-    }
+    
+    axios.post("http://localhost:3002/user/login",credentials)
+      .then((res) => {
+        console.log(res);
+        alert(res.data.message);
+        
+        
+        if (res.data.usertoken) {
+          localStorage.setItem("token", res.data.usertoken); 
+          navigate('/home'); 
+        }
+      })
+      
   };
 
   return (

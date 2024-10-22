@@ -8,12 +8,13 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../axiosinterceptor';
 
 const Home = () => {
   const [courses, setCourse] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3002/courses/')
+    axiosInstance.get('http://localhost:3002/courses/')
       .then((res) => {
         setCourse(res.data);
       })
@@ -25,7 +26,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const deleteCourse = (id) => {
-    axios.delete('http://localhost:3002/courses/delete/' + id)
+    axiosInstance.delete('http://localhost:3002/courses/delete/' + id)
       .then((res) => {
         alert('Data deleted');
         // Refresh the course list after deletion

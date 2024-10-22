@@ -9,6 +9,7 @@ import Home from './components/Home'
 
 
 import { Route, Routes } from 'react-router-dom'
+import PrivateRoutes from './components/PrivateRoutes';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,10 +20,13 @@ function App() {
       <br />
       <br />
       <Routes>
-      <Route path='/login' element={<Login />} />
-      <Route path = '/' element = {<Home/>}></Route>
-      <Route path = '/add' element = {<Add/>}></Route>
-      {/* <Route path="/login" element={<Login />} /> */}
+      <Route path='/' element={<Login />} />
+      <Route element={<PrivateRoutes/>}>
+        <Route path = '/home' element = {<Home/>}></Route>
+        <Route path = '/add' element = {<Add/>}></Route>
+      </Route>
+      
+      
       
      </Routes>
       

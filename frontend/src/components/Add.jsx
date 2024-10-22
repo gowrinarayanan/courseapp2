@@ -2,6 +2,7 @@ import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import axiosInstance from '../axiosinterceptor';
 
 const Add = () => {
   const [course, setCourse] = useState({
@@ -22,7 +23,7 @@ const Add = () => {
 
   const sendData = () => {
     if (location.state && location.state.course) {
-      axios.put('http://localhost:3002/courses/edit/' + location.state.course._id, course)
+      axiosInstance.put('http://localhost:3002/courses/edit/' + location.state.course._id, course)
         .then((res) => {
           alert('Data updated');
           navigate('/');
@@ -31,9 +32,9 @@ const Add = () => {
           console.log(error);
         });
     } else {
-      axios.post('http://localhost:3002/courses/addCourse/', course)
+      axiosInstance.post('http://localhost:3002/courses/addCourse', course)
         .then((res) => {
-          navigate('/');
+          navigate('/home');
         })
         .catch((error) => {
           console.log(error);
